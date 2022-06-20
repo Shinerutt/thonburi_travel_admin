@@ -1,10 +1,118 @@
 <template>
   <div class="columns is-multiline">
-    <div class="column is-3" v-for="item in lists_filter" :key="item.id ">
-      <div style="width=100%; height: 200px; background: red;">
-         {{item.name}}
-         <img :src="item.img" alt="" style="width:100%; height: 200px;"> 
-      </div> 
+    <div
+      class="column is-3"
+      v-for="item in lists_filter"
+      :key="item.id"
+      @click="open_detail(item)"
+    >
+      <div
+        style="width=100%; height: 200px; background:green ; margin-top:25px ; "
+      >
+        {{ item.name }}
+        <img :src="item.img" alt="" style="width: 100%; height: 200px" />
+      </div>
+    </div>
+    <div v-bind:class="{ modal: true, 'is-active': modal_open }">
+      <div class="modal-background" @click="close_modal"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Modal title</p>
+          <button
+            class="delete"
+            aria-label="close"
+            @click="close_modal"
+          ></button>
+        </header>
+        <section class="modal-card-body">
+          <!-- Content ... -->
+          <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                placeholder="Text input"
+                v-model="detail.name"
+              />
+            </div>
+          </div>
+
+          <div class="columns">
+            <div class="column">
+              <div class="field">
+                <label class="label">Lat</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    placeholder="Text input"
+                    v-model="detail.lat"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="field">
+                <label class="label">Lng</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    placeholder="Text input"
+                    v-model="detail.lng"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Detail</label>
+            <div class="control">
+              <textarea
+                class="textarea"
+                placeholder="e.g. Hello world"
+                v-model="detail.detail"
+              ></textarea>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Category</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select v-model="detail.category">
+                  <option v-for="item in cat_option" :key="item">
+                    {{ item }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label class="label">Image</label>
+            <div class="field has-addons" v-for="(item_img,index) in detail.img_places" :key="index">
+              <div class="control is-expanded">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Input Link Image"
+                 v-model="item_img.img"
+                />
+              </div>
+              <div class="control">
+                <a class="button is-danger" @click="delete_img(index)"> Delete </a>
+              </div>
+            </div>
+            <button class="button is-info" @click="add_img" >add</button>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success" @click="save_detail">
+            Save changes
+          </button>
+          <button class="button" @click="close_modal">Cancel</button>
+        </footer>
+      </div>
     </div>
   </div>
 </template>
@@ -18,7 +126,17 @@ export default defineComponent({
     return {
       lists: [],
       lists_filter: [],
-
+      modal_open: false,
+      detail: {
+        id: "",
+        name: "Rutjanakorn",
+        lat: 0,
+        lng: 0,
+        detail: "",
+        category: "",
+        img_places: [],
+      },
+      cat_option: ["landmark", "market", "temple", "restaurant"],
     };
   },
   created() {
@@ -34,8 +152,8 @@ export default defineComponent({
         .get(`${end_point}/places/${cat}`)
         .then((res) => {
           this.lists = res.data.map((item) => {
-            item.img_places = JSON.parse(item.img_places);
-            item.img = item.img_places[0]
+            item.img_places = JSON.parse(item.img_places).map(x=>({img:x}))
+            item.img = item.img_places[0].img
             return item;
           });
 
@@ -48,6 +166,22 @@ export default defineComponent({
           console.log("finally");
         });
     },
+    open_detail(item) {
+      this.modal_open = true;
+      this.detail = item;
+    },
+    close_modal() {
+      this.modal_open = false;
+    },
+    save_detail() {
+      alert("Hello world");
+    },
+    add_img(){
+      this.detail.img_places.push({img:""});
+    },
+    delete_img(position){
+      this.detail.img_places.splice(position,1);
+    }
   },
 });
 </script>
