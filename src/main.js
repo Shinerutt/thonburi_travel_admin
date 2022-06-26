@@ -5,6 +5,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import HomePage from '@/components/HomePage.vue' 
 import MainPage from '@/components/MainPage.vue'
 import RecommendPage from '@/components/RecommendPage.vue'
+import RecommendDetailPage from '@/components/RecommendDetailPage.vue'
 import TripsPage from '@/components/TripsPage.vue'
 import VideoPage from '@/components/VideoPage.vue'
 
@@ -20,10 +21,24 @@ const routes = [
         {
           path: 'home',
           component: HomePage,
-        }, {
+        }, 
+        
+        {
             path: 'recommend',
             component: RecommendPage,
-          }, {
+            // children:[
+            //   {
+            //     path: ':id',
+            //     component:RecommendDetailPage,
+            //   }
+            // ]
+          },
+          {
+            path: 'recommend/:id',
+            component:RecommendDetailPage,
+          },
+          
+          {
             path: 'trips',
             component: TripsPage,
           },

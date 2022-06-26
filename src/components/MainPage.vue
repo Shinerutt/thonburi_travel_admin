@@ -87,6 +87,7 @@ a {
   color: #42b983;
 }
 .content {
+  padding: 20px;
   width: 100vw;
   height: 95vh;
   
