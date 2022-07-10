@@ -1,5 +1,5 @@
 <template>
- <div class="columns" style="width: 100%">
+<div class="columns" >
     <button class="button is-primary" @click="show_modal_create" >create</button>
   </div>
   <div class="columns is-multiline">
@@ -13,7 +13,7 @@
         style="width=100%; height: 200px; background:green ; margin-top:25px ; "
       >
         {{ item.name }}
-        <img :src="item.img_places" alt="" style="width: 100%; height: 200px" />
+        <img :src="item.img_place" alt="" style="width: 100%; height: 200px" />
       </div>
     </div>
   </div>
@@ -67,6 +67,7 @@
       </footer>
     </div>
   </div>
+
 
   <div v-bind:class="{ modal: true, 'is-active': modal_create_open }">
     <div class="modal-background" @click="close_modal_create"></div>
@@ -129,16 +130,16 @@ export default defineComponent({
     return {
       lists: [],
       modal_open: false,
-      modal_create_open: false,
+      modal_create_open:false,
       detail: {
         name: "",
         content: "",
-        img_places: "",
+        img_place: "",
       },
-      detail_create: {
+       detail_create: {
         name: "",
         content: "",
-        img_places: "",
+        img_place: "",
       },
     };
   },
@@ -149,7 +150,7 @@ export default defineComponent({
   methods: {
     get_recommend() {
       axios
-        .get(`${end_point}/view/recommededPlaces/${this.$route.params.id}`)
+        .get(`${end_point}/view/recommededTrip/${this.$route.params.id}`)
         .then((res) => {
           console.log(res.data);
           this.lists = res.data.detail;
@@ -168,7 +169,7 @@ export default defineComponent({
     save_detail() {
       alert("Hello world");
     },
-    save_detail_create() {
+     save_detail_create() {
       alert("Hello world");
     },
     add_img() {

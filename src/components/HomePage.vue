@@ -1,4 +1,7 @@
 <template>
+  <div class="columns" style="width: 100%">
+    <button class="button is-primary" @click="show_modal_create" >create</button>
+  </div>
   <div class="columns is-multiline">
     <div
       class="column is-3"
@@ -117,6 +120,110 @@
       </footer>
     </div>
   </div>
+
+  <div v-bind:class="{ modal: true, 'is-active': modal_create_open }">
+    <div class="modal-background" @click="close_modal_create"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Create Place Details</p>
+        <button class="delete" aria-label="close" @click="close_modal_create"></button>
+      </header>
+      <section class="modal-card-body">
+        <!-- Content ... -->
+        <div class="field">
+          <label class="label">Name</label>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              placeholder="Text input"
+              v-model="detail_create.name"
+            />
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <label class="label">Lat</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Text input"
+                  v-model="detail_create.lat"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label">Lng</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Text input"
+                  v-model="detail_create.lng"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Detail</label>
+          <div class="control">
+            <textarea
+              class="textarea"
+              placeholder="e.g. Hello world"
+              v-model="detail_create.detail"
+            ></textarea>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Category</label>
+          <div class="control">
+            <div class="select is-fullwidth">
+              <select v-model="detail_create.category">
+                <option v-for="item in cat_option" :key="item">
+                  {{ item }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div>
+          <label class="label">Image</label>
+          <div
+            class="field has-addons"
+            v-for="(item_img, index) in detail_create.img_places"
+            :key="index"
+          >
+            <div class="control is-expanded">
+              <input
+                class="input"
+                type="text"
+                placeholder="Input Link Image"
+                v-model="item_img.img"
+              />
+            </div>
+            <div class="control">
+              <a class="button is-danger" @click="delete_img_create(index)">
+                Delete
+              </a>
+            </div>
+          </div>
+          <button class="button is-info" @click="add_img_create">add</button>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success" @click="save_detail_create">
+          Save changes
+        </button>
+        <button class="button" @click="close_modal_create">Cancel</button>
+      </footer>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -129,7 +236,17 @@ export default defineComponent({
       lists: [],
       lists_filter: [],
       modal_open: false,
+      modal_create_open: false,
       detail: {
+        id: "",
+        name: "Rutjanakorn",
+        lat: 0,
+        lng: 0,
+        detail: "",
+        category: "",
+        img_places: [],
+      },
+      detail_create: {
         id: "",
         name: "Rutjanakorn",
         lat: 0,
@@ -177,14 +294,29 @@ export default defineComponent({
     close_modal() {
       this.modal_open = false;
     },
+    close_modal_create() {
+      this.modal_create_open = false;
+    },
     save_detail() {
+      alert("Hello world");
+    },
+    save_detail_create() {
       alert("Hello world");
     },
     add_img() {
       this.detail.img_places.push({ img: "" });
     },
+    add_img_create() {
+      this.detail_create.img_places.push({ img: "" });
+    },
     delete_img(position) {
       this.detail.img_places.splice(position, 1);
+    },
+    delete_img_create(position) {
+      this.detail_create.img_places.splice(position, 1);
+    },
+    show_modal_create(){
+      this.modal_create_open = true;
     },
   },
 });

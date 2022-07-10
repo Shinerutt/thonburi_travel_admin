@@ -7,6 +7,7 @@ import MainPage from '@/components/MainPage.vue'
 import RecommendPage from '@/components/RecommendPage.vue'
 import RecommendDetailPage from '@/components/RecommendDetailPage.vue'
 import TripsPage from '@/components/TripsPage.vue'
+import TripsDetailPage from '@/components/TripsDetailPage.vue'
 import VideoPage from '@/components/VideoPage.vue'
 
 const routes = [
@@ -41,6 +42,10 @@ const routes = [
           {
             path: 'trips',
             component: TripsPage,
+          },
+          {
+            path: 'trips/:id',
+            component:TripsDetailPage,
           },
           {
             path: 'video',
