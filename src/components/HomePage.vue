@@ -117,6 +117,7 @@
           Save changes
         </button>
         <button class="button" @click="close_modal">Cancel</button>
+        <button class="button is-danger" @click="delete_places">Delete</button>
       </footer>
     </div>
   </div>
@@ -221,6 +222,7 @@
           Create
         </button>
         <button class="button" @click="close_modal_create">Cancel</button>
+        
       </footer>
     </div>
   </div>
@@ -297,8 +299,36 @@ export default defineComponent({
     close_modal_create() {
       this.modal_create_open = false;
     },
+    delete_places(){
+      axios.delete(`${end_point}/places/${this.detail.id}`)
+      .then((res)=>{
+        if(res.data.status == true){
+        alert("Delete Places Success")
+        this.get_places_by_cat("all");
+      }
+      else{
+        alert(res.data.message)
+      }
+      })
+    .catch(()=>{
+      alert ("Can not delete Places.")
+    })
+      
+    },
     save_detail() {
-      alert("Hello world");
+      axios.post(`${end_point}/update/places/${this.detail.id}`,this.detail )
+     .then((res)=>{
+      if(res.data.status == true){
+        alert("Update Places Success")
+        this.get_places_by_cat("all");
+      }
+      else{
+        alert(res.data.message)
+      }
+     })
+    .catch(()=>{
+      alert ("Can not update Places.")
+    })
     },
     save_detail_create() {
       

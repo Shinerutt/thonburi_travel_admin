@@ -74,6 +74,7 @@
           Save changes
         </button>
         <button class="button" @click="close_modal">Cancel</button>
+        <button class="button is-danger" @click="delete_vdo">Delete</button>
       </footer>
     </div>
   </div>
@@ -132,6 +133,7 @@
           Save changes
         </button>
         <button class="button" @click="close_modal_create">Cancel</button>
+        
       </footer>
     </div>
   </div>
@@ -182,8 +184,36 @@ export default defineComponent({
     close_modal_create() {
       this.modal_create_open = false;
     },
+    delete_vdo(){
+      axios.delete(`${end_point}/vdo/${this.detail.id}`)
+      .then((res)=>{
+        if(res.data.status == true){
+        alert("Delete Video Success")
+        this.get_vdo();
+      }
+      else{
+        alert(res.data.message)
+      }
+      })
+    .catch(()=>{
+      alert ("Can not delete Video.")
+    })
+      
+    },
     save_detail() {
-      alert("Hello world");
+      axios.post(`${end_point}/update/vdo/${this.detail.id}`,this.detail )
+     .then((res)=>{
+      if(res.data.status == true){
+        alert("Update Video Success")
+        this.get_vdo();
+      }
+      else{
+        alert(res.data.message)
+      }
+     })
+    .catch(()=>{
+      alert ("Can not update Video.")
+    })
     },
     save_detail_create() {
      axios.post(`${end_point}/vdo`,this.detail_create )
