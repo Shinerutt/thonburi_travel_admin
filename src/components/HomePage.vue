@@ -218,7 +218,7 @@
       </section>
       <footer class="modal-card-foot">
         <button class="button is-success" @click="save_detail_create">
-          Save changes
+          Create
         </button>
         <button class="button" @click="close_modal_create">Cancel</button>
       </footer>
@@ -301,7 +301,22 @@ export default defineComponent({
       alert("Hello world");
     },
     save_detail_create() {
-      alert("Hello world");
+      
+      axios.post(`${end_point}/places`,this.detail_create )
+      .then((res)=>{
+        if(res.data.status == true){
+          alert("create places Success")
+          this.get_places_by_cat("all");
+        }
+        else{
+          alert(res.data.message)
+        }
+      })
+      .catch(()=>{
+        alert ("Can not create places.")
+      })
+
+      
     },
     add_img() {
       this.detail.img_places.push({ img: "" });

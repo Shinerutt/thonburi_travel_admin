@@ -46,6 +46,18 @@
         </div>
 
         <div class="field">
+          <label class="label">Image Cover URL</label>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              placeholder="Text input"
+              v-model="detail.img_cover"
+            />
+          </div>
+        </div>
+
+        <div class="field">
           <label class="label">Video Link</label>
           <div class="control">
             <input
@@ -66,12 +78,16 @@
     </div>
   </div>
 
-   <div v-bind:class="{ modal: true, 'is-active': modal_create_open }">
+  <div v-bind:class="{ modal: true, 'is-active': modal_create_open }">
     <div class="modal-background" @click="close_modal_create"></div>
     <div class="modal-card">
       <header class="modal-card-head">
         <p class="modal-card-title">Create Video</p>
-        <button class="delete" aria-label="close" @click="close_modal_create"></button>
+        <button
+          class="delete"
+          aria-label="close"
+          @click="close_modal_create"
+        ></button>
       </header>
       <section class="modal-card-body">
         <!-- Content ... -->
@@ -83,6 +99,18 @@
               type="text"
               placeholder="Text input"
               v-model="detail_create.name"
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Image Cover URL</label>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              placeholder="Text input"
+              v-model="detail_create.img_cover"
             />
           </div>
         </div>
@@ -119,14 +147,16 @@ export default defineComponent({
     return {
       lists: [],
       modal_open: false,
-      modal_create_open:false,
+      modal_create_open: false,
       detail: {
         id: "",
+        img_cover:"",
         name: "",
         vdo_link: [],
       },
       detail_create: {
         id: "",
+        img_cover:"",
         name: "",
         vdo_link: [],
       },
@@ -156,7 +186,19 @@ export default defineComponent({
       alert("Hello world");
     },
     save_detail_create() {
-      alert("Hello world");
+     axios.post(`${end_point}/vdo`,this.detail_create )
+     .then((res)=>{
+      if(res.data.status == true){
+        alert("Create Video Success")
+        this.get_vdo();
+      }
+      else{
+        alert(res.data.message)
+      }
+     })
+    .catch(()=>{
+      alert ("Can not create Video.")
+    })
     },
     add_img() {
       this.detail.img_places.push({ img: "" });
@@ -164,9 +206,9 @@ export default defineComponent({
     delete_img(position) {
       this.detail.img_places.splice(position, 1);
     },
-    show_modal_create(){
+    show_modal_create() {
       this.modal_create_open = true;
-    }
+    },
   },
 });
 </script>
