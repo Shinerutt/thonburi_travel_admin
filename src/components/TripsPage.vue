@@ -1,4 +1,7 @@
 <template>
+<div class="columns" style="width: 100%">
+    <button class="button is-primary" @click="show_modal_create">create</button>
+  </div>
   <div class="columns is-multiline">
     <div
       class="column is-3"
@@ -26,7 +29,7 @@
       <div class="modal-background" @click="close_modal"></div>
       <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Edit Place Details</p>
+          <p class="modal-card-title">Edit Trips Details</p>
           <button
             class="delete"
             aria-label="close"
@@ -43,6 +46,18 @@
                 type="text"
                 placeholder="Text input"
                 v-model="detail.title"
+              />
+            </div>
+          </div>
+
+           <div class="field">
+            <label class="label">Image Cover</label>
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                placeholder="Text input"
+                v-model="detail.img_cover"
               />
             </div>
           </div>
@@ -72,8 +87,7 @@ export default defineComponent({
         id: "",
         title: "",
         img_cover: "",
-        created_at: "",
-        updated_at: "",
+        
       },
       // cat_option: ["landmark", "market", "temple", "restaurant"],
     };
@@ -121,13 +135,28 @@ export default defineComponent({
       this.modal_open = false;
     },
     save_detail() {
-      alert("Hello world");
+     axios.post(`${end_point}/recommededTrip`,this.detail )
+     .then((res)=>{
+      if(res.data.status == true){
+        alert("Update Trip Success")
+        this.get_recommended();
+      }
+      else{
+        alert(res.data.message)
+      }
+     })
+    .catch(()=>{
+      alert ("Can not update Trip.")
+    })
     },
     add_img() {
       this.detail.img_places.push({ img: "" });
     },
     delete_img(position) {
       this.detail.img_places.splice(position, 1);
+    },
+    show_modal_create() {
+      this.modal_open = true;
     },
   },
 });

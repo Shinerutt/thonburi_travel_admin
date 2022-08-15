@@ -1,19 +1,22 @@
 <template>
- <div class="columns" style="width: 100%">
-    <button class="button is-primary" @click="show_modal_create" >create</button>
+  <div class="columns" style="width: 100%">
+    <button class="button is-primary" @click="show_modal_create">create</button>
   </div>
   <div class="columns is-multiline">
     <div
       class="column is-3"
       v-for="item in lists"
       :key="item.id"
-      @click="open_detail(item)"
+     
     >
       <div
         style="width=100%; height: 200px; background:green ; margin-top:25px ; "
       >
         {{ item.name }}
-        <img :src="item.img_places" alt="" style="width: 100%; height: 200px" />
+        <img :src="item.img_places"  @click="open_detail(item)" alt="" style="width: 100%; height: 200px" />
+        <button class="button is-primary" @click="delete_item(item.id)">
+          Delete
+        </button>
       </div>
     </div>
   </div>
@@ -73,7 +76,11 @@
     <div class="modal-card">
       <header class="modal-card-head">
         <p class="modal-card-title">Create Recommenddetail</p>
-        <button class="delete" aria-label="close" @click="close_modal_create"></button>
+        <button
+          class="delete"
+          aria-label="close"
+          @click="close_modal_create"
+        ></button>
       </header>
       <section class="modal-card-body">
         <!-- Content ... -->
@@ -133,18 +140,21 @@ export default defineComponent({
       detail: {
         name: "",
         content: "",
+        ref_recommended: "",
         img_places: "",
       },
       detail_create: {
         name: "",
         content: "",
         img_places: "",
+        ref_recommended: "",
       },
     };
   },
   created() {
     //    (this.$route.params.id)
     this.get_recommend();
+    this.detail_create.ref_recommended = this.$route.params.id;
   },
   methods: {
     get_recommend() {
@@ -158,6 +168,7 @@ export default defineComponent({
     open_detail(item) {
       this.modal_open = true;
       this.detail = item;
+      this.detail.ref_recommended = this.$route.params.id;
     },
     close_modal() {
       this.modal_open = false;
@@ -165,11 +176,38 @@ export default defineComponent({
     close_modal_create() {
       this.modal_create_open = false;
     },
-    save_detail() {
-      alert("Hello world");
-    },
     save_detail_create() {
-      alert("Hello world");
+      axios
+        .post(`${end_point}/recommendedPlaceDetail`, this.detail_create)
+        .then((res) => {
+          if (res.data.status == true) {
+            alert("Create RecommendedPlaceDetail Success");
+            this.get_recommend();
+          } else {
+            alert(res.data.message);
+          }
+        })
+        .catch(() => {
+          alert("Can not Create RecommendedPlaceDetail.");
+        });
+    },
+    save_detail() {
+      axios
+        .put(
+          `${end_point}/recommendedPlaceDetail/${this.detail.id}`,
+          this.detail
+        )
+        .then((res) => {
+          if (res.data.status == true) {
+            alert("Upadte RecommendedPlaceDetail Success");
+            this.get_recommend();
+          } else {
+            alert(res.data.message);
+          }
+        })
+        .catch(() => {
+          alert("Can not Upadte RecommendedPlaceDetail.");
+        });
     },
     add_img() {
       this.detail.img_places.push({ img: "" });
@@ -177,9 +215,24 @@ export default defineComponent({
     delete_img(position) {
       this.detail.img_places.splice(position, 1);
     },
-    show_modal_create(){
+    show_modal_create() {
       this.modal_create_open = true;
-    }
+    },
+    delete_item(id) {
+      axios
+        .delete(`${end_point}/recommendedPlaceDetail/${id}`)
+        .then((res) => {
+          if (res.data.status == true) {
+            alert("Delete ItemID Success");
+            this.get_recommend();
+          } else {
+            alert(res.data.message);
+          }
+        })
+        .catch(() => {
+          alert("Can not Delete ItemID.");
+        });
+    },
   },
 });
 </script>
