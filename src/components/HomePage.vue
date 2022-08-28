@@ -230,7 +230,7 @@
 
 <script>
 import { defineComponent } from "vue";
-const end_point = "http://128.199.103.191:3333";
+const end_point = "http://";
 import axios from "axios";
 export default defineComponent({
   data() {
