@@ -78,7 +78,7 @@
 
 <script>
 import { defineComponent } from "vue";
-const end_point = "http://https://api.system-searchpet.com";
+const end_point = "https://api.system-searchpet.com";
 import axios from "axios";
 export default defineComponent({
   data() {
