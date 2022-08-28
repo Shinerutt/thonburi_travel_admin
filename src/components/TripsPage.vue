@@ -22,6 +22,9 @@
             />
           </div>
         </router-link>
+        <!-- <button class="button is-primary" @click="delete_item(item.id)">
+          Delete
+        </button> -->
       </div>
     </div>
     </div>
@@ -75,7 +78,7 @@
 
 <script>
 import { defineComponent } from "vue";
-const end_point = "http://127.0.0.1:3333";
+const end_point = "http://128.199.103.191:3333";
 import axios from "axios";
 export default defineComponent({
   data() {
@@ -158,6 +161,21 @@ export default defineComponent({
     show_modal_create() {
       this.modal_open = true;
     },
+    // delete_item(id) {
+    //   axios
+    //     .delete(`${end_point}/recommededTripDetail/${id}`)
+    //     .then((res) => {
+    //       if (res.data.status == true) {
+    //         alert("Delete ItemID Success");
+    //         this.get_recommend();
+    //       } else {
+    //         alert(res.data.message);
+    //       }
+    //     })
+    //     .catch(() => {
+    //       alert("Can not Delete ItemID.");
+    //     });
+    // },
   },
 });
 </script>

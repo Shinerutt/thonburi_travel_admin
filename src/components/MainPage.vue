@@ -2,14 +2,14 @@
   <div class="hello">
     <nav class="navbar">
       <div class="navbar-brand">
-        <a class="navbar-item" href="http://bulma.io">
+        <!-- <a class="navbar-item" href="http://bulma.io">
           <img
             src="http://bulma.io/images/bulma-logo.png"
             alt="Bulma: a modern CSS framework based on Flexbox"
             width="112"
             height="28"
           />
-        </a>
+        </a> -->
 
         <a
           class="navbar-item is-hidden-desktop"
