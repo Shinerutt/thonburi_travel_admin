@@ -1,21 +1,14 @@
 <template>
-<div class="columns" >
-    <button class="button is-primary" @click="show_modal_create" >create</button>
+  <div class="columns">
+    <button class="button is-primary" @click="show_modal_create">สร้าง</button>
   </div>
   <div class="columns is-multiline">
-    <div
-      class="column is-3"
-      v-for="item in lists"
-      :key="item.id"
-      
-    >
-      <div
-        style="width=100%; height: 200px; background:green ; margin-top:25px ; "
-      >
+    <div class="column is-3" v-for="item in lists" :key="item.id">
+      <div style="width=100%; height: 200px; background:green ; margin-top:25px ; ">
         {{ item.name }}
         <img :src="item.img_place" alt="" @click="open_detail(item)" style="width: 100%; height: 200px" />
         <button class="button is-primary" @click="delete_item(item.id)">
-          Delete
+          ลบข้อมูล
         </button>
       </div>
     </div>
@@ -24,49 +17,35 @@
     <div class="modal-background" @click="close_modal"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Edit Tripsdetail</p>
+        <p class="modal-card-title">แก้ไขรายละเอียดข้อมูลของหน้าทริป</p>
         <button class="delete" aria-label="close" @click="close_modal"></button>
       </header>
       <section class="modal-card-body">
-        <!-- Content ... -->
+        <!-- ContenT ... -->
         <div class="field">
-          <label class="label">Name</label>
+          <label class="label">ชื่อเรื่อง</label>
           <div class="control">
-            <input
-              class="input"
-              type="text"
-              placeholder="Text input"
-              v-model="detail.name"
-            />
+            <input class="input" type="text" placeholder="Text input" v-model="detail.name" />
           </div>
         </div>
         <div class="field">
-          <label class="label">Content</label>
+          <label class="label">ข้อมูล</label>
           <div class="control">
-            <textarea
-              class="textarea"
-              placeholder="e.g. Hello world"
-              v-model="detail.content"
-            ></textarea>
+            <textarea class="textarea" placeholder="e.g. Hello world" v-model="detail.content"></textarea>
           </div>
         </div>
         <div class="field">
-          <label class="label">Image_Places</label>
+          <label class="label">รูปภาพ</label>
           <div class="control">
-            <input
-              class="input"
-              type="text"
-              placeholder="Text input"
-              v-model="detail.img_place"
-            />
+            <input class="input" type="text" placeholder="Text input" v-model="detail.img_place" />
           </div>
         </div>
       </section>
       <footer class="modal-card-foot">
         <button class="button is-success" @click="save_detail">
-          Save changes
+          บันทึก
         </button>
-        <button class="button" @click="close_modal">Cancel</button>
+        <button class="button" @click="close_modal">ยกเลิก</button>
       </footer>
     </div>
   </div>
@@ -80,45 +59,31 @@
         <button class="delete" aria-label="close" @click="close_modal_create"></button>
       </header>
       <section class="modal-card-body">
-        <!-- Content ... -->
+        <!-- ContenT ... -->
         <div class="field">
-          <label class="label">Name</label>
+          <label class="label">ชื่อเรื่อง</label>
           <div class="control">
-            <input
-              class="input"
-              type="text"
-              placeholder="Text input"
-              v-model="detail_create.name"
-            />
+            <input class="input" type="text" placeholder="Text input" v-model="detail_create.name" />
           </div>
         </div>
         <div class="field">
-          <label class="label">Content</label>
+          <label class="label">ข้อมูล</label>
           <div class="control">
-            <textarea
-              class="textarea"
-              placeholder="e.g. Hello world"
-              v-model="detail_create.content"
-            ></textarea>
+            <textarea class="textarea" placeholder="e.g. Hello world" v-model="detail_create.content"></textarea>
           </div>
         </div>
         <div class="field">
-          <label class="label">Image_Places</label>
+          <label class="label">รูปภาพ</label>
           <div class="control">
-            <input
-              class="input"
-              type="text"
-              placeholder="Text input"
-              v-model="detail_create.img_place"
-            />
+            <input class="input" type="text" placeholder="Text input" v-model="detail_create.img_place" />
           </div>
         </div>
       </section>
       <footer class="modal-card-foot">
         <button class="button is-success" @click="save_detail_create">
-          Save changes
+          บันทึก
         </button>
-        <button class="button" @click="close_modal_create">Cancel</button>
+        <button class="button" @click="close_modal_create">ยกเลิก</button>
       </footer>
     </div>
   </div>
@@ -133,18 +98,18 @@ export default defineComponent({
     return {
       lists: [],
       modal_open: false,
-      modal_create_open:false,
+      modal_create_open: false,
       detail: {
         name: "",
         content: "",
         img_place: "",
-        ref_recommended : "",
+        ref_recommended: "",
       },
-       detail_create: {
+      detail_create: {
         name: "",
         content: "",
         img_place: "",
-        ref_recommended : "",
+        ref_recommended: "",
       },
     };
   },
@@ -174,34 +139,34 @@ export default defineComponent({
       this.modal_create_open = false;
     },
     save_detail() {
-      axios.put(`${end_point}/recommededTripDetail/${this.detail.id}`,this.detail )
-     .then((res)=>{
-      if(res.data.status == true){
-        alert("Upadte recommededTripDetail Success")
-        this.get_recommend();
-      }
-      else{
-        alert(res.data.message)
-      }
-     })
-    .catch(()=>{
-      alert ("Can not Upadte recommededTripDetail.")
-    })
+      axios.put(`${end_point}/recommededTripDetail/${this.detail.id}`, this.detail)
+        .then((res) => {
+          if (res.data.status == true) {
+            alert("Upadte recommededTripDetail Success")
+            this.get_recommend();
+          }
+          else {
+            alert(res.data.message)
+          }
+        })
+        .catch(() => {
+          alert("Can not Upadte recommededTripDetail.")
+        })
     },
-     save_detail_create() {
-      axios.post(`${end_point}/recommededTripDetail`,this.detail_create )
-     .then((res)=>{
-      if(res.data.status == true){
-        alert("Create recommededTripDetail Success")
-        this.get_recommend();
-      }
-      else{
-        alert(res.data.message)
-      }
-     })
-    .catch(()=>{
-      alert ("Can not Create recommededTripDetail.")
-    })
+    save_detail_create() {
+      axios.post(`${end_point}/recommededTripDetail`, this.detail_create)
+        .then((res) => {
+          if (res.data.status == true) {
+            alert("Create recommededTripDetail Success")
+            this.get_recommend();
+          }
+          else {
+            alert(res.data.message)
+          }
+        })
+        .catch(() => {
+          alert("Can not Create recommededTripDetail.")
+        })
     },
     add_img() {
       this.detail.img_places.push({ img: "" });
@@ -209,23 +174,27 @@ export default defineComponent({
     delete_img(position) {
       this.detail.img_places.splice(position, 1);
     },
-    show_modal_create(){
+    show_modal_create() {
       this.modal_create_open = true;
     },
     delete_item(id) {
-      axios
-        .delete(`${end_point}/recommededTripDetail/${id}`)
-        .then((res) => {
-          if (res.data.status == true) {
-            alert("Delete ItemID Success");
-            this.get_recommend();
-          } else {
-            alert(res.data.message);
-          }
-        })
-        .catch(() => {
-          alert("Can not Delete ItemID.");
-        });
+      if (confirm("ยื่นยันการลบข้อมูล!") == true) {
+        axios
+          .delete(`${end_point}/recommededTripDetail/${id}`)
+          .then((res) => {
+            if (res.data.status == true) {
+              alert("Delete ItemID Success");
+              this.get_recommend();
+            } else {
+              alert(res.data.message);
+            }
+          })
+          .catch(() => {
+            alert("Can not Delete ItemID.");
+          });
+      } else {
+        this.modal_open = false;
+      }
     },
 
   },

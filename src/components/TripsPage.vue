@@ -1,6 +1,6 @@
 <template>
 <div class="columns" style="width: 100%">
-    <button class="button is-primary" @click="show_modal_create">create</button>
+    <button class="button is-primary" @click="show_modal_create">สร้าง</button>
   </div>
   <div class="columns is-multiline">
     <div

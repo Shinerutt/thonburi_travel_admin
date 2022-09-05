@@ -1,17 +1,10 @@
 <template>
   <div class="columns" style="width: 100%">
-    <button class="button is-primary" @click="show_modal_create" >create</button>
+    <button class="button is-primary" @click="show_modal_create">สร้าง</button>
   </div>
   <div class="columns is-multiline">
-    <div
-      class="column is-3"
-      v-for="item in lists_filter"
-      :key="item.id"
-      @click="open_detail(item)"
-    >
-      <div
-        style="width=100%; height: 200px; background:green ; margin-top:25px ; "
-      >
+    <div class="column is-3" v-for="item in lists_filter" :key="item.id" @click="open_detail(item)">
+      <div style="width=100%; height: 200px; background:green ; margin-top:25px ; ">
         {{ item.name }}
         <img :src="item.img" alt="" style="width: 100%; height: 200px" />
       </div>
@@ -21,63 +14,44 @@
     <div class="modal-background" @click="close_modal"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Edit Place Details</p>
+        <p class="modal-card-title">แก้ไขรายละเอียดข้อมูลของสถานที่</p>
         <button class="delete" aria-label="close" @click="close_modal"></button>
       </header>
       <section class="modal-card-body">
         <!-- Content ... -->
         <div class="field">
-          <label class="label">Name</label>
+          <label class="label">ชื่อสถานที่</label>
           <div class="control">
-            <input
-              class="input"
-              type="text"
-              placeholder="Text input"
-              v-model="detail.name"
-            />
+            <input class="input" type="text" placeholder="Text input" v-model="detail.name" />
           </div>
         </div>
 
         <div class="columns">
           <div class="column">
             <div class="field">
-              <label class="label">Lat</label>
+              <label class="label">ละติจูด</label>
               <div class="control">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Text input"
-                  v-model="detail.lat"
-                />
+                <input class="input" type="text" placeholder="Text input" v-model="detail.lat" />
               </div>
             </div>
           </div>
           <div class="column">
             <div class="field">
-              <label class="label">Lng</label>
+              <label class="label">ลองจิจูด</label>
               <div class="control">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Text input"
-                  v-model="detail.lng"
-                />
+                <input class="input" type="text" placeholder="Text input" v-model="detail.lng" />
               </div>
             </div>
           </div>
         </div>
         <div class="field">
-          <label class="label">Detail</label>
+          <label class="label">รายละเอียด</label>
           <div class="control">
-            <textarea
-              class="textarea"
-              placeholder="e.g. Hello world"
-              v-model="detail.detail"
-            ></textarea>
+            <textarea class="textarea" placeholder="e.g. Hello world" v-model="detail.detail"></textarea>
           </div>
         </div>
         <div class="field">
-          <label class="label">Category</label>
+          <label class="label">หมวดหมู่</label>
           <div class="control">
             <div class="select is-fullwidth">
               <select v-model="detail.category">
@@ -89,35 +63,26 @@
           </div>
         </div>
         <div>
-          <label class="label">Image</label>
-          <div
-            class="field has-addons"
-            v-for="(item_img, index) in detail.img_places"
-            :key="index"
-          >
+          <label class="label">รูปภาพ</label>
+          <div class="field has-addons" v-for="(item_img, index) in detail.img_places" :key="index">
             <div class="control is-expanded">
-              <input
-                class="input"
-                type="text"
-                placeholder="Input Link Image"
-                v-model="item_img.img"
-              />
+              <input class="input" type="text" placeholder="Input Link Image" v-model="item_img.img" />
             </div>
             <div class="control">
               <a class="button is-danger" @click="delete_img(index)">
-                Delete
+                ลบรูป
               </a>
             </div>
           </div>
-          <button class="button is-info" @click="add_img">add</button>
+          <button class="button is-info" @click="add_img">เพิ่ม</button>
         </div>
       </section>
       <footer class="modal-card-foot">
         <button class="button is-success" @click="save_detail">
-          Save changes
+          บันทึก
         </button>
         <button class="button" @click="close_modal">Cancel</button>
-        <button class="button is-danger" @click="delete_places">Delete</button>
+        <button class="button is-danger" @click="delete_places">ลบข้อมูล</button>
       </footer>
     </div>
   </div>
@@ -126,63 +91,44 @@
     <div class="modal-background" @click="close_modal_create"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Create Place Details</p>
+        <p class="modal-card-title">เพิ่มรายละเอียดข้อมูลของสถานที่</p>
         <button class="delete" aria-label="close" @click="close_modal_create"></button>
       </header>
       <section class="modal-card-body">
         <!-- Content ... -->
         <div class="field">
-          <label class="label">Name</label>
+          <label class="label">ชื่อสถานที่</label>
           <div class="control">
-            <input
-              class="input"
-              type="text"
-              placeholder="Text input"
-              v-model="detail_create.name"
-            />
+            <input class="input" type="text" placeholder="Text input" v-model="detail_create.name" />
           </div>
         </div>
 
         <div class="columns">
           <div class="column">
             <div class="field">
-              <label class="label">Lat</label>
+              <label class="label">ละติจูด</label>
               <div class="control">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Text input"
-                  v-model="detail_create.lat"
-                />
+                <input class="input" type="text" placeholder="Text input" v-model="detail_create.lat" />
               </div>
             </div>
           </div>
           <div class="column">
             <div class="field">
-              <label class="label">Lng</label>
+              <label class="label">ลองจิจูด</label>
               <div class="control">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Text input"
-                  v-model="detail_create.lng"
-                />
+                <input class="input" type="text" placeholder="Text input" v-model="detail_create.lng" />
               </div>
             </div>
           </div>
         </div>
         <div class="field">
-          <label class="label">Detail</label>
+          <label class="label">รายละเอียด</label>
           <div class="control">
-            <textarea
-              class="textarea"
-              placeholder="e.g. Hello world"
-              v-model="detail_create.detail"
-            ></textarea>
+            <textarea class="textarea" placeholder="e.g. Hello world" v-model="detail_create.detail"></textarea>
           </div>
         </div>
         <div class="field">
-          <label class="label">Category</label>
+          <label class="label">หมวดหมู่</label>
           <div class="control">
             <div class="select is-fullwidth">
               <select v-model="detail_create.category">
@@ -194,35 +140,26 @@
           </div>
         </div>
         <div>
-          <label class="label">Image</label>
-          <div
-            class="field has-addons"
-            v-for="(item_img, index) in detail_create.img_places"
-            :key="index"
-          >
+          <label class="label">รูปภาพ</label>
+          <div class="field has-addons" v-for="(item_img, index) in detail_create.img_places" :key="index">
             <div class="control is-expanded">
-              <input
-                class="input"
-                type="text"
-                placeholder="Input Link Image"
-                v-model="item_img.img"
-              />
+              <input class="input" type="text" placeholder="Input Link Image" v-model="item_img.img" />
             </div>
             <div class="control">
               <a class="button is-danger" @click="delete_img_create(index)">
-                Delete
+                ลบรูป
               </a>
             </div>
           </div>
-          <button class="button is-info" @click="add_img_create">add</button>
+          <button class="button is-info" @click="add_img_create">เพิ่ม</button>
         </div>
       </section>
       <footer class="modal-card-foot">
         <button class="button is-success" @click="save_detail_create">
-          Create
+          สร้าง
         </button>
-        <button class="button" @click="close_modal_create">Cancel</button>
-        
+        <button class="button" @click="close_modal_create">ยกเลิก</button>
+
       </footer>
     </div>
   </div>
@@ -258,8 +195,10 @@ export default defineComponent({
         img_places: [],
       },
       cat_option: ["landmark", "market", "temple", "restaurant"],
+
     };
   },
+
   created() {
     this.get_places_by_cat("all");
   },
@@ -299,54 +238,57 @@ export default defineComponent({
     close_modal_create() {
       this.modal_create_open = false;
     },
-    delete_places(){
-      axios.delete(`${end_point}/places/${this.detail.id}`)
-      .then((res)=>{
-        if(res.data.status == true){
-        alert("Delete Places Success")
-        this.get_places_by_cat("all");
+    delete_places() {
+      if (confirm("ยื่นยันการลบข้อมูล!") == true) {
+        axios.delete(`${end_point}/places/${this.detail.id}`)
+          .then((res) => {
+            if (res.data.status == true) {
+              alert("Delete Places Success")
+              this.get_places_by_cat("all");
+            }
+            else {
+              alert(res.data.message)
+            }
+          })
+          .catch(() => {
+            alert("Can not delete Places.")
+          })
+      } else {
+        this.modal_open = false;
       }
-      else{
-        alert(res.data.message)
-      }
-      })
-    .catch(()=>{
-      alert ("Can not delete Places.")
-    })
-      
     },
     save_detail() {
-      axios.post(`${end_point}/update/places/${this.detail.id}`,this.detail )
-     .then((res)=>{
-      if(res.data.status == true){
-        alert("Update Places Success")
-        this.get_places_by_cat("all");
-      }
-      else{
-        alert(res.data.message)
-      }
-     })
-    .catch(()=>{
-      alert ("Can not update Places.")
-    })
+      axios.post(`${end_point}/update/places/${this.detail.id}`, this.detail)
+        .then((res) => {
+          if (res.data.status == true) {
+            alert("Update Places Success")
+            this.get_places_by_cat("all");
+          }
+          else {
+            alert(res.data.message)
+          }
+        })
+        .catch(() => {
+          alert("Can not update Places.")
+        })
     },
     save_detail_create() {
-      
-      axios.post(`${end_point}/places`,this.detail_create )
-      .then((res)=>{
-        if(res.data.status == true){
-          alert("create places Success")
-          this.get_places_by_cat("all");
-        }
-        else{
-          alert(res.data.message)
-        }
-      })
-      .catch(()=>{
-        alert ("Can not create places.")
-      })
 
-      
+      axios.post(`${end_point}/places`, this.detail_create)
+        .then((res) => {
+          if (res.data.status == true) {
+            alert("create places Success")
+            this.get_places_by_cat("all");
+          }
+          else {
+            alert(res.data.message)
+          }
+        })
+        .catch(() => {
+          alert("Can not create places.")
+        })
+
+
     },
     add_img() {
       this.detail.img_places.push({ img: "" });
@@ -360,7 +302,7 @@ export default defineComponent({
     delete_img_create(position) {
       this.detail_create.img_places.splice(position, 1);
     },
-    show_modal_create(){
+    show_modal_create() {
       this.modal_create_open = true;
     },
   },

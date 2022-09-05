@@ -1,21 +1,14 @@
 <template>
   <div class="columns" style="width: 100%">
-    <button class="button is-primary" @click="show_modal_create">create</button>
+    <button class="button is-primary" @click="show_modal_create">สร้าง</button>
   </div>
   <div class="columns is-multiline">
-    <div
-      class="column is-3"
-      v-for="item in lists"
-      :key="item.id"
-     
-    >
-      <div
-        style="width=100%; height: 200px; background:green ; margin-top:25px ; "
-      >
+    <div class="column is-3" v-for="item in lists" :key="item.id">
+      <div style="width=100%; height: 200px; background:green ; margin-top:25px ; ">
         {{ item.name }}
-        <img :src="item.img_places"  @click="open_detail(item)" alt="" style="width: 100%; height: 200px" />
+        <img :src="item.img_places" @click="open_detail(item)" alt="" style="width: 100%; height: 200px" />
         <button class="button is-primary" @click="delete_item(item.id)">
-          Delete
+          ลบข้อมูล
         </button>
       </div>
     </div>
@@ -24,49 +17,35 @@
     <div class="modal-background" @click="close_modal"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Edit Recommenddetail</p>
+        <p class="modal-card-title">แก้ไขข้อมูลแนะนำ</p>
         <button class="delete" aria-label="close" @click="close_modal"></button>
       </header>
       <section class="modal-card-body">
-        <!-- Content ... -->
+        <!-- Contentt ... -->
         <div class="field">
-          <label class="label">Name</label>
+          <label class="label">ชื่อหัวข้อ</label>
           <div class="control">
-            <input
-              class="input"
-              type="text"
-              placeholder="Text input"
-              v-model="detail.name"
-            />
+            <input class="input" type="text" placeholder="Text input" v-model="detail.name" />
           </div>
         </div>
         <div class="field">
-          <label class="label">Content</label>
+          <label class="label">ข้อมูล</label>
           <div class="control">
-            <textarea
-              class="textarea"
-              placeholder="e.g. Hello world"
-              v-model="detail.content"
-            ></textarea>
+            <textarea class="textarea" placeholder="e.g. Hello world" v-model="detail.content"></textarea>
           </div>
         </div>
         <div class="field">
-          <label class="label">Image_Places</label>
+          <label class="label">รูปภาพ</label>
           <div class="control">
-            <input
-              class="input"
-              type="text"
-              placeholder="Text input"
-              v-model="detail.img_places"
-            />
+            <input class="input" type="text" placeholder="Text input" v-model="detail.img_places" />
           </div>
         </div>
       </section>
       <footer class="modal-card-foot">
         <button class="button is-success" @click="save_detail">
-          Save changes
+          บันทึก
         </button>
-        <button class="button" @click="close_modal">Cancel</button>
+        <button class="button" @click="close_modal">ยกเลิก</button>
       </footer>
     </div>
   </div>
@@ -75,53 +54,35 @@
     <div class="modal-background" @click="close_modal_create"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Create Recommenddetail</p>
-        <button
-          class="delete"
-          aria-label="close"
-          @click="close_modal_create"
-        ></button>
+        <p class="modal-card-title">เพิ่มรายละเอียดแนะนำ</p>
+        <button class="delete" aria-label="close" @click="close_modal_create"></button>
       </header>
       <section class="modal-card-body">
-        <!-- Content ... -->
+        <!-- ContenT ... -->
         <div class="field">
-          <label class="label">Name</label>
+          <label class="label">ชื่อหัวข้อ</label>
           <div class="control">
-            <input
-              class="input"
-              type="text"
-              placeholder="Text input"
-              v-model="detail_create.name"
-            />
+            <input class="input" type="text" placeholder="Text input" v-model="detail_create.name" />
           </div>
         </div>
         <div class="field">
-          <label class="label">Content</label>
+          <label class="label">ข้อมูล</label>
           <div class="control">
-            <textarea
-              class="textarea"
-              placeholder="e.g. Hello world"
-              v-model="detail_create.content"
-            ></textarea>
+            <textarea class="textarea" placeholder="e.g. Hello world" v-model="detail_create.content"></textarea>
           </div>
         </div>
         <div class="field">
-          <label class="label">Image_Places</label>
+          <label class="label">รูปภาพ</label>
           <div class="control">
-            <input
-              class="input"
-              type="text"
-              placeholder="Text input"
-              v-model="detail_create.img_places"
-            />
+            <input class="input" type="text" placeholder="Text input" v-model="detail_create.img_places" />
           </div>
         </div>
       </section>
       <footer class="modal-card-foot">
         <button class="button is-success" @click="save_detail_create">
-          Save changes
+          บันทึก
         </button>
-        <button class="button" @click="close_modal_create">Cancel</button>
+        <button class="button" @click="close_modal_create">ยกเลิก</button>
       </footer>
     </div>
   </div>
@@ -219,19 +180,23 @@ export default defineComponent({
       this.modal_create_open = true;
     },
     delete_item(id) {
-      axios
-        .delete(`${end_point}/recommendedPlaceDetail/${id}`)
-        .then((res) => {
-          if (res.data.status == true) {
-            alert("Delete ItemID Success");
-            this.get_recommend();
-          } else {
-            alert(res.data.message);
-          }
-        })
-        .catch(() => {
-          alert("Can not Delete ItemID.");
-        });
+      if (confirm("ยื่นยันการลบข้อมูล!") == true) {
+        axios
+          .delete(`${end_point}/recommendedPlaceDetail/${id}`)
+          .then((res) => {
+            if (res.data.status == true) {
+              alert("Delete ItemID Success");
+              this.get_recommend();
+            } else {
+              alert(res.data.message);
+            }
+          })
+          .catch(() => {
+            alert("Can not Delete ItemID.");
+          });
+      } else {
+        this.modal_open = false;
+      }
     },
   },
 });
