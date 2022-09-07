@@ -40,10 +40,10 @@
 
       <div id="navMenubd-example" class="navbar-menu">
         <div class="navbar-start">
-          <router-link to="/main/home"><a class="navbar-item" href="#"> Homepage </a></router-link>
-          <router-link to="/main/recommend"><a class="navbar-item" href="#"> Recommend </a></router-link>
-          <router-link to="/main/trips"><a class="navbar-item" href="#"> trips </a></router-link>
-          <router-link to="/main/video"><a class="navbar-item" href="#"> Video </a></router-link>
+          <router-link to="/main/home"><a class="navbar-item" href="#"> หน้าหลัก </a></router-link>
+          <router-link to="/main/recommend"><a class="navbar-item" href="#"> แนะนำ </a></router-link>
+          <router-link to="/main/trips"><a class="navbar-item" href="#"> ทริป </a></router-link>
+          <router-link to="/main/video"><a class="navbar-item" href="#"> วิดีโอ </a></router-link>
           
           
           

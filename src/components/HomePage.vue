@@ -81,7 +81,7 @@
         <button class="button is-success" @click="save_detail">
           บันทึก
         </button>
-        <button class="button" @click="close_modal">Cancel</button>
+        <button class="button" @click="close_modal">ยกเลิก</button>
         <button class="button is-danger" @click="delete_places">ลบข้อมูล</button>
       </footer>
     </div>
